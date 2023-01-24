@@ -7,7 +7,7 @@ from models import storage
 
 
 @app_views.route('/places/<place_id>/amenities', methods=['GET', 'POST'],
-                    strict_slashes=False)
+                 strict_slashes=False)
 def handle_place_amenities(place_id):
     """ This function handles the place_amenities route """
     place = storage.get('Place', place_id)
@@ -32,7 +32,7 @@ def handle_place_amenities(place_id):
 
 
 @app_views.route('/places/<place_id>/amenities/<amenity_id>',
-                    methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
+                 methods=['GET', 'PUT', 'DELETE'], strict_slashes=False)
 def handle_place_amenity(place_id, amenity_id):
     """ This function handles the place_amenity route """
     place = storage.get('Place', place_id)
@@ -52,7 +52,7 @@ def handle_place_amenity(place_id, amenity_id):
             abort(400, 'Not a JSON')
         for key, value in request.json.items():
             if key not in ['id', 'user_id', 'city_id', 'created_at',
-                            'updated_at']:
+                           'updated_at']:
                 setattr(amenity, key, value)
         amenity.save()
         return jsonify(amenity.to_dict()), 200
