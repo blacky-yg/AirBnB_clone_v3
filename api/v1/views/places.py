@@ -7,7 +7,7 @@ from models import storage
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET', 'POST'],
-                    strict_slashes=False)
+                 strict_slashes=False)
 def handle_places(city_id):
     """ This function handles the places route """
     city = storage.get('City', city_id)
@@ -32,7 +32,7 @@ def handle_places(city_id):
 
 
 @app_views.route('/places/<place_id>', methods=['GET', 'DELETE', 'PUT'],
-                    strict_slashes=False)
+                 strict_slashes=False)
 def handle_place(place_id):
     """ This function handles the place route """
     place = storage.get('Place', place_id)
@@ -49,7 +49,7 @@ def handle_place(place_id):
             abort(400, 'Not a JSON')
         for key, value in request.json.items():
             if key not in ['id', 'user_id', 'city_id', 'created_at',
-                            'updated_at']:
+                           'updated_at']:
                 setattr(place, key, value)
         place.save()
         return jsonify(place.to_dict()), 200
